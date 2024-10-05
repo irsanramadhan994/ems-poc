@@ -1,12 +1,19 @@
 // src/LoginPage.js
-import React, { useEffect, useState } from "react";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
-import { signIn } from "aws-amplify/auth";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import "../styles/LoginPage.css";
 import { Divider } from "@mui/material";
+import { signIn } from "aws-amplify/auth";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import awsConfig from "../../aws-config";
-import { cognitoOauth2, setAccessToken, setClockDrift, setIdToken, setLastAuthUser, setRefreshToken, setUserInfo } from "../services/AuthServices";
+import {
+  cognitoOauth2,
+  setAccessToken,
+  setClockDrift,
+  setIdToken,
+  setLastAuthUser,
+  setRefreshToken,
+} from "../services/AuthServices";
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +22,8 @@ const LoginPage = () => {
   let [searchParams] = useSearchParams();
 
   useEffect(() => {
-
     checkSession();
     checkSSOSession();
-
-
   }, []);
 
   const handleSSOLogin = () => {
@@ -29,10 +33,8 @@ const LoginPage = () => {
 
   const checkSSOSession = () => {
     if (searchParams.get("code"))
-        handleRedirectFromSso(searchParams.get("code"));
-}
-  
-
+      handleRedirectFromSso(searchParams.get("code"));
+  };
 
   const handleRedirectFromSso = (code) => {
     cognitoOauth2(code).then((data) => {
@@ -58,25 +60,39 @@ const LoginPage = () => {
     }
   };
 
-
   const checkSession = () => {
-    let lastAuthUserSessionStorage = sessionStorage.getItem("CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + ".LastAuthUser");
-    let lastAuthUserlocalStorage = sessionStorage.getItem("CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + ".LastAuthUser");
+    let lastAuthUserSessionStorage = sessionStorage.getItem(
+      "CognitoIdentityServiceProvider." +
+        awsConfig.aws_user_pools_web_client_id +
+        ".LastAuthUser"
+    );
+    let lastAuthUserlocalStorage = sessionStorage.getItem(
+      "CognitoIdentityServiceProvider." +
+        awsConfig.aws_user_pools_web_client_id +
+        ".LastAuthUser"
+    );
     let accessToken = "";
     if (lastAuthUserlocalStorage)
-        accessToken = localStorage.getItem(
-            "CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + "." + lastAuthUserlocalStorage + ".accessToken"
-        );
+      accessToken = localStorage.getItem(
+        "CognitoIdentityServiceProvider." +
+          awsConfig.aws_user_pools_web_client_id +
+          "." +
+          lastAuthUserlocalStorage +
+          ".accessToken"
+      );
     if (lastAuthUserSessionStorage)
-        accessToken = sessionStorage.getItem(
-            "CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + "." + lastAuthUserlocalStorage + ".accessToken"
-        );
-
+      accessToken = sessionStorage.getItem(
+        "CognitoIdentityServiceProvider." +
+          awsConfig.aws_user_pools_web_client_id +
+          "." +
+          lastAuthUserlocalStorage +
+          ".accessToken"
+      );
 
     if (accessToken) {
-        navigation("/main");
+      navigation("/main");
     }
-}
+  };
 
   return (
     <Container id="loginContainer">
@@ -124,5 +140,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
