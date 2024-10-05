@@ -1,5 +1,4 @@
-#loginContainer{
-
+#loginContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,9 +9,6 @@
     border-radius: 16px;
 }
 
-
-
-.gap-20{
-
+.gap-20 {
     gap: 20px;
 }

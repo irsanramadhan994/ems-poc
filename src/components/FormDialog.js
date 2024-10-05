@@ -116,13 +116,14 @@ export const FormDialog = ({ open, handleClose }) => {
                 >
                   <MenuItem value={10}>Normal</MenuItem>
                   <MenuItem value={20}>Special</MenuItem>
-
                 </Select>
               </FormControl>
             </Col>
             <Col md={12} className="my-2">
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Main Rewards</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Main Rewards
+                </InputLabel>
 
                 <Select
                   labelId="demo-simple-select-label"
@@ -131,13 +132,14 @@ export const FormDialog = ({ open, handleClose }) => {
                 >
                   <MenuItem value={10}>Normal</MenuItem>
                   <MenuItem value={20}>Special</MenuItem>
-
                 </Select>
               </FormControl>
             </Col>
             <Col md={12} className="my-2">
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Additional Rewards</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Additional Rewards
+                </InputLabel>
 
                 <Select
                   labelId="demo-simple-select-label"
@@ -146,7 +148,6 @@ export const FormDialog = ({ open, handleClose }) => {
                 >
                   <MenuItem value={10}>Normal</MenuItem>
                   <MenuItem value={20}>Special</MenuItem>
-
                 </Select>
               </FormControl>
             </Col>
@@ -161,7 +162,6 @@ export const FormDialog = ({ open, handleClose }) => {
                 >
                   <MenuItem value={10}>Normal</MenuItem>
                   <MenuItem value={20}>Special</MenuItem>
-
                 </Select>
               </FormControl>
             </Col>
@@ -180,7 +180,7 @@ export const FormDialog = ({ open, handleClose }) => {
                 </Select>
               </FormControl>
             </Col>
-            
+
             <Col md={12} className="my-2">
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Cities</InputLabel>
@@ -212,7 +212,9 @@ export const FormDialog = ({ open, handleClose }) => {
               </FormControl>
             </Col>
             <Col md={12} className="my-2">
-              <Button variant="contained" type="submit">ADD LOCATION</Button>
+              <Button variant="contained" type="submit">
+                ADD LOCATION
+              </Button>
             </Col>
             <Col md={12} className="my-2">
               <FormControl fullWidth>

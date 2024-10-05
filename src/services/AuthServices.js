@@ -1,7 +1,6 @@
-import config from '../../config.js';
+import axios from "axios";
 import awsConfig from "../../aws-config.js";
-import axios from 'axios';
-
+import config from "../../config.js";
 
 export const cognitoOauth2 = async (code) => {
   try {
@@ -44,57 +43,55 @@ export const cognitoOauth2 = async (code) => {
   }
 };
 
-
 export function setRefreshToken(data) {
-    sessionStorage.setItem(
-        "CognitoIdentityServiceProvider." +
-        awsConfig.aws_user_pools_web_client_id +
-        "." +
-        data.user_info.sub +
-        ".refreshToken",
-        data.token_info.refresh_token
-    );
+  sessionStorage.setItem(
+    "CognitoIdentityServiceProvider." +
+      awsConfig.aws_user_pools_web_client_id +
+      "." +
+      data.user_info.sub +
+      ".refreshToken",
+    data.token_info.refresh_token
+  );
 }
 
-
 export function setClockDrift(data) {
-    sessionStorage.setItem(
-        "CognitoIdentityServiceProvider." +
-        awsConfig.aws_user_pools_web_client_id +
-        "." +
-        data.user_info.sub +
-        ".clockDrift",
-        1
-    );
+  sessionStorage.setItem(
+    "CognitoIdentityServiceProvider." +
+      awsConfig.aws_user_pools_web_client_id +
+      "." +
+      data.user_info.sub +
+      ".clockDrift",
+    1
+  );
 }
 
 export function setAccessToken(data) {
-    sessionStorage.setItem(
-        "CognitoIdentityServiceProvider." +
-        awsConfig.aws_user_pools_web_client_id +
-        "." +
-        data.user_info.sub +
-        ".accessToken",
-        data.token_info.access_token
-    );
+  sessionStorage.setItem(
+    "CognitoIdentityServiceProvider." +
+      awsConfig.aws_user_pools_web_client_id +
+      "." +
+      data.user_info.sub +
+      ".accessToken",
+    data.token_info.access_token
+  );
 }
 
 export function setLastAuthUser(data) {
-    sessionStorage.setItem(
-        "CognitoIdentityServiceProvider." +
-        awsConfig.aws_user_pools_web_client_id +
-        ".LastAuthUser",
-        data.user_info.sub
-    );
+  sessionStorage.setItem(
+    "CognitoIdentityServiceProvider." +
+      awsConfig.aws_user_pools_web_client_id +
+      ".LastAuthUser",
+    data.user_info.sub
+  );
 }
 
 export function setIdToken(data) {
-    sessionStorage.setItem(
-        "CognitoIdentityServiceProvider." +
-        awsConfig.aws_user_pools_web_client_id +
-        "." +
-        data.user_info.sub +
-        ".idToken",
-        data.token_info.id_token
-    );
+  sessionStorage.setItem(
+    "CognitoIdentityServiceProvider." +
+      awsConfig.aws_user_pools_web_client_id +
+      "." +
+      data.user_info.sub +
+      ".idToken",
+    data.token_info.id_token
+  );
 }
