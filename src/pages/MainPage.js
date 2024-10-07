@@ -1,16 +1,18 @@
 // src/MainPage.js
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import { Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { DataGrid } from '@mui/x-data-grid';
 import { FormDialog } from '../components/FormDialog';
 import {signOut} from 'aws-amplify/auth'
 import { useNavigate } from 'react-router-dom';
 
+
 const MainPage = () => {
   const [brandCode, setBrandCode] = useState('');
   const [open, setOpen] = useState(false)
   const [searchText, setSearchText] = useState('');
   const navigation = useNavigate();
+  
   const [rows, setRows] = useState([
     {
       "id": 1,
@@ -180,6 +182,9 @@ const MainPage = () => {
 
   ]);
 
+
+
+
   const handleCreate = () => {
     
     setOpen(true)
@@ -200,7 +205,6 @@ const MainPage = () => {
 
   const handleLogout = () =>{
     signOut({global:true}).then((res) => {
-        console.log(res)
         localStorage.clear();
         sessionStorage.clear();
         navigation("/login")

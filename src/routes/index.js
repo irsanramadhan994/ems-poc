@@ -1,32 +1,28 @@
-import React, { lazy } from 'react';
-import {
-    createBrowserRouter,
-    Navigate,
-  } from "react-router-dom";
+import React from 'react'
+import PrivateRoutes from './PrivateRoute';
+import LoginPage from '../pages/LoginPage';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import MainPage from '../pages/MainPage';
 
 
-
-const LoginPage = lazy(() => import('../pages/LoginPage'));
-const MainPage = lazy(() => import('../pages/MainPage'));
-
-const AuthorizedRouter = createBrowserRouter([
+const AppRoutes = () => {
+    return (
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+        path="*"
+        element={<Navigate to="/main" replace />}
+    />
+        {/* Protected route */}
+        <Route path="/main" element={
+          <PrivateRoutes>
+            <MainPage />
+          </PrivateRoutes>
+        } />
+        
+        {/* Add more routes as needed */}
+      </Routes>
+    );
+  };
   
-    {
-        path: "main",
-        element: <MainPage />,
-      },
-
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-      {
-        path: '*',
-        element: <Navigate to="/login" />,
-      },
-  ]);
-
-  const unauthorizeRoutes = createBrowserRouter([
-
-  ])
-export { AuthorizedRouter ,unauthorizeRoutes}
+  export default AppRoutes;

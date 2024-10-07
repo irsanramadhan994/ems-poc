@@ -1,16 +1,18 @@
 // src/App.js
-import React, { Suspense } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import router from './routes';
+import React, { Suspense } from "react";
 
-
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import AppRoutes from "./routes";
 
 const App = () => {
-
-
   return (
-    <Suspense fallback={"....Loading"} >
-    <RouterProvider router={router} />
+    <Suspense fallback={"....Loading"}>
+      <BrowserRouter>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </BrowserRouter>
     </Suspense>
   );
 };

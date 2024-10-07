@@ -6,7 +6,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import "../styles/LoginPage.css";
 import { Divider } from "@mui/material";
 import awsConfig from "../../aws-config";
-import { cognitoOauth2, setAccessToken, setClockDrift, setIdToken, setLastAuthUser, setRefreshToken, setUserInfo } from "../services/AuthServices";
+import {
+  cognitoOauth2,
+  fetchLoginUser,
+  setAccessToken,
+  setClockDrift,
+  setIdToken,
+  setLastAuthUser,
+  setRefreshToken,
+  setUserInfo,
+} from "../services/AuthServices";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +24,8 @@ const LoginPage = () => {
   let [searchParams] = useSearchParams();
 
   useEffect(() => {
-
-    checkSession();
-    checkSSOSession();
-
+    if (searchParams.get("code")) checkSSOSession();
+   
 
   }, []);
 
@@ -29,10 +36,8 @@ const LoginPage = () => {
 
   const checkSSOSession = () => {
     if (searchParams.get("code"))
-        handleRedirectFromSso(searchParams.get("code"));
-}
-  
-
+      handleRedirectFromSso(searchParams.get("code"));
+  };
 
   const handleRedirectFromSso = (code) => {
     cognitoOauth2(code).then((data) => {
@@ -41,6 +46,7 @@ const LoginPage = () => {
       setAccessToken(data);
       setLastAuthUser(data);
       setIdToken(data);
+
       navigation("/main");
     });
   };
@@ -58,25 +64,7 @@ const LoginPage = () => {
     }
   };
 
-
-  const checkSession = () => {
-    let lastAuthUserSessionStorage = sessionStorage.getItem("CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + ".LastAuthUser");
-    let lastAuthUserlocalStorage = sessionStorage.getItem("CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + ".LastAuthUser");
-    let accessToken = "";
-    if (lastAuthUserlocalStorage)
-        accessToken = localStorage.getItem(
-            "CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + "." + lastAuthUserlocalStorage + ".accessToken"
-        );
-    if (lastAuthUserSessionStorage)
-        accessToken = sessionStorage.getItem(
-            "CognitoIdentityServiceProvider." + awsConfig.aws_user_pools_web_client_id + "." + lastAuthUserlocalStorage + ".accessToken"
-        );
-
-
-    if (accessToken) {
-        navigation("/main");
-    }
-}
+  
 
   return (
     <Container id="loginContainer">
@@ -124,5 +112,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-

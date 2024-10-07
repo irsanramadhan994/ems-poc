@@ -1,6 +1,7 @@
 import config from '../../config.js';
 import awsConfig from "../../aws-config.js";
 import axios from 'axios';
+import {getCurrentUser} from 'aws-amplify/auth'
 
 
 export const cognitoOauth2 = async (code) => {
@@ -43,6 +44,13 @@ export const cognitoOauth2 = async (code) => {
     };
   }
 };
+
+
+export const fetchLoginUser = async() =>{
+  const { username, userId, signInDetails } = await getCurrentUser();
+
+  console.log(username,userId,signInDetails)
+}
 
 
 export function setRefreshToken(data) {
